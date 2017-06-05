@@ -1,0 +1,28 @@
+\section{Experiment}
+\subsection{Entropy of attributes}
+Probability distributions, such as normal or uniform distributions, are commonly used to model database' attributes. Much of the popularity of normal distribution can be attributed to the Central Limit Theorem (CLT). The CLT states that, the distribution of the mean which independently has been drawn from the mean of an large number of samples size (N), approaches a normal distribution. The most of data representing human, nature and social sciences often have distributions that are nearly normal. Moreover, algorithms such as Expectation Maximization (EM) can be applied to estimate best likelihood of the observed values to probabilistic models.\\
+
+The entropy is the measure of randomness for an attributes' value set in a database, and entropy is maximized if probability distribution associated with the values is uniform. Intuitively, we compose set of disinformation documents with attributes' value in a way that transfers normal distribution to uniform in database. To exemplify, consider table presented in Figure \ref{attributeEntropy} that presents an attribute with normal and uniform distribution.\\
+
+A normal distribution has a symmetric bell-shape cure and approximately 68\% of data are scattered in the range $[\mu - \sigma, \mu + \sigma]$, and almost 95\% of values lie within $[\mu - 2 \times\sigma, \mu + 2 \times \sigma]$, and about 99.7\% are inside  $[\mu - 3 \times\sigma, \mu + 3 \times \sigma]$. This empirical rule is known as $3\sigma$ rule which discloses critical information about the scatter pattern of a values of data. This leaked information can be exploited by a attacker to guess with high precision.\\ 
+
+We examined a set of databases with different size, containing an attribute with value domain that distributed normally in range $[a,b]$. Then, the comparison of entropy of equivalent attribute with uniform distribution reveals the amount of leaked information from normal distributed data. For instance, the value information from an attribute in the database with 1000 documents in normal distribution is 8.4 bit while in uniform distribution it is 9.97 it means that 1.57 bit of information in normal distribution already leaked. The result is illustrated in Figure \ref{attributeEntropy}. 
+
+%table & chart
+\input{figures/attributeEntropychart.tex}
+
+\subsection{Query processing time benchmark}
+Latency in query execution is the period of time that takes to process the query and return a result set. Indeed, insertion of disinformation documents increases the size of database and it can negatively affect the query execution time. In order to quantify the query latency in cloud DBaaS, an iterative method is employed to evaluate latency of several simple queries on the different databases that are contain specific number of documents. This method, enables us to focus only on a single variable, in this experiment the variable is size of the database. The benchmark initially removes all the existing documents from all databases and repopulated it with the required data set size. Subsequently, a test is performed without index as well as two single index. In all cases, to eliminate cache boost-up, the query caching is disabled. This process is repeated for all the specified database sizes and the measurement for the benchmark with sample queries is displayed in Figure \ref{queryLatencyToSize}a.\\ 
+
+One of the biggest reward of our approach which coming from using the unmodified standard database server is benefit of all database technology’ features such as indexing. Indexing allows to perform more sophisticated search on data such as binary search, that reduces the maximum search time from $O(n)$ to $O(\log n)$ which is magnificent increase in performance. Figure \ref{queryLatencyToSize}b present the improvement of in the same queries' execution time.\\  
+
+\textbf{Result description:} The chart for a simple query on the non-indexed databases demonstrates that query latency steadily increasing with rise of database size. However, the trend of query processing time remains steady with no significant variations with increasing the size of indexed database. The indexed attributes guarantees an insignificant increase in query processing time spatially for the encrypted databases which have the augmented size in comparison with the plaintext non-indexed database.
+
+\input{figures/queryProcessingPerformance.tex}
+
+
+\subsection{Hash functions performance according to document size }
+For preventing active attack on cloud database the eTag algorithm introduced. The eTag constructed based on crypto hash function. We examine the performance of four popular hash functions according the input size. The results is displayed in Figure \ref{fig:hashPerformance}. Considering the performance and security metrics we used Sha1 hash function over others to utilize in eTag algorithm.
+
+%chart
+\input{figures/hashPerformance.tex}

@@ -1,0 +1,27 @@
+\begin{tikzpicture}[trim axis right, trim axis right]
+\begin{axis}[
+legend pos=outer north east,
+ybar,
+%enlarge y limits={upper,value=0.2},
+height=8cm,width=12cm,
+ytick={1000,10000,20000,30000,40000,50000},
+bar width=15pt,
+ylabel={Speed up},
+symbolic x coords={$10^2$,$10^3$,$10^4$,$10^5$,$10^7$,$10^8$},
+xtick=data,
+xtick style={draw=none},
+nodes near coords,
+nodes near coords align={vertical},
+xmajorgrids=false,
+xlabel={Number of documents per samples},
+%axis background/.style={fill,bottom color=gray!50,top color=white},
+cycle list = {white,black!10,black!40,black!10,black!10},
+grid style={dotted,black},
+axis lines*=left,
+clip=false,
+nodes near coords align={vertical},
+yticklabel style={/pgf/number format/fixed},
+]
+\addplot+[fill,draw=black,text=black, postaction={pattern=north west lines},draw=black] coordinates {({$10^2$},31000) ({$10^3$},8000) ({$10^4$},1300) ({$10^5$},150)};
+\end{axis}
+\end{tikzpicture}

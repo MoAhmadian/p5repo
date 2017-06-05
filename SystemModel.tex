@@ -1,0 +1,185 @@
+\section{System models and assumptions}
+\label{sec:systemModel}
+
+A proactive threat analysis followed by a systematic conversion of identified threats into the system-wide requirements are mandatory requirements for building secure systems. This section introduces a model for threat assessment and leakage resilient cloud database service design. 
+
+\subsection{Basic concepts}
+\label{subsec:Preliminaries}
+
+
+The important concepts used in this paper include \textit{access pattern}, \textit{Query pattern} and \textit{Attributes class}.
+
+\begin{definition}[Access Pattern] \hfill \\
+\label{def:accessPattern}
+The physical location of a document containing the trapdoor keyword in the collection is known as access pattern. In particular, for a given query $q$ and dataset $D$ to an untrusted server (adversary), any query response always leaks access pattern information to the adversary. The goal is to process query $q=\{ w, D \}$ which contains keyword $w$ over the dataset containing $n$ documents $D=\{d_1,\dots,d_n\}$. In an encrypted dataset, the adversary is not able to learn $w$, but simply finds out the set of documents that contains $w$ and can learn about the access pattern. For instance, in course of specific time, some encrypted documents in the collection were retrieved more frequently than the rest of documents, which reveals access pattern to the server.
+\end{definition} 
+
+\begin{definition}[Query Pattern] \hfill \\
+\label{def:queryPattern}
+Query pattern is a kind of information that server can obtain from aggregation of queries during an operational time, e.g. a CSP identifies the documents that are being queried more frequently from history of queries.
+\end{definition} 
+
+\begin{definition}[Attributes Classification] \hfill \\
+\label{def:attributesClasses}
+Attributes of a document are categorized into three classes: (1) Identifier attribute, which allows us to uniquely identify a single document in the collection, e.g. social security number, phone number and email address. (2) Semi-identifier attributes which are not able to uniquely identify documents, but are collectively able to distinguish a document, e.g. combination of name, department name, gender and age can identify a person uniquely. (3) Feature attribute expresses a characteristic of an object by giving sensitive information about it.
+\end{definition} 
+
+
+
+\subsection{The threat model}
+
+Threats of cloud computing can be analyzed from multiple viewpoints, adversarial views, system security and threat determination. This study is focused on system end-to-end security based on an adversarial perspective. The adversarial threat analysis starts with thinking like an attacker and continues to prepare the corresponding countermeasure. Two classes of threats, external and internal attackers are identified by the model. 
+
+\smallskip
+
+
+\noindent \textbf{\textit{External attacker:}} An attacker from the outside of the cloud environment may be able to obtain unauthorized access to the data by applying techniques or tools to monitor the communication between the clients and the cloud servers. External attackers, in most cases, face a more complex task, since they need to bypass firewalls, intrusion detection systems, and other defensive setups without any authorization.
+
+\smallskip 
+
+\noindent \textbf{\textit{Cloud malicious insiders(MIs):}} A side effect of outsourcing databases  to a computer cloud is the risk of unauthorized access by malicious insiders.  Employees and contractors of large datacenters have access to the software, the hardware, and the data  and, as shown by events affecting national security,  a malicious insider could leak highly sensitive documents. An intruder could gain access to the computing resources of a datacenter  by  obtaining the credentials of a valid user and can thus pose MI type threats. Major risk factors associated with MIs are violation of data confidentiality and integrity and/or leaked information exploitation.
+
+%*************************************************
+\subsection{The risk model}
+\label{MaliciousInsiderModelSubSec}
+%*************************************************
+
+The risk posed by a potential MI has been identified as the top most devastating threat for the cloud ecosystem.  An effective defense mechanism requires  a rigorous  risk analysis to  identify the  significance and scope of each threats posed by MIs. Then a  mitigation solution for each major risks should be proposed. The confidentiality and integrity violation of data are the most serious security concerns. 
+
+The security mechanism provided by CSPs are vulnerable to the attacks from a MI.  Traditional cryptographic schemes are ineffective and many of them leak critical information about the  data. The CSPs have little incentives to address information leakage from encrypted data. The risk factors and the corresponding solutions as well as the advantages and disadvantages of the proposed solution are summarized in Figure\ref{fig:MIriskFactors}.
+
+\begin{figure}[H]
+\centering
+\resizebox{0.9\textwidth}{!}{\input{figures/MaliciousInsiderRiskFactors.tex}}
+\caption{Risk factors of malicious insiders in the cloud DBaaS and the corresponding solutions with advantages and disadvantages}
+\label{fig:MIriskFactors}
+\end{figure}
+
+
+Our approach to model an MI starts with identifying components and the associated risks as result of MI actions. An MI can bypass internal protection mechanism and pose serious risks to data \textit{confidentiality},  \textit{integrity} and \textit{inference} violations. The list of possible MI actions are denoted as $A=\{C, I,\Psi \}$ respectively. We assume that there are $n$ collections are stored in the data warehouse of DBaaS rephrased as: $W_{DBaaS}= \{D_1,\dots,D_n\}$.
+
+
+An MI has read/write access in the data warehouse and activity log files denoted with $L$. Let $R$ present the key resources in the DBaaS $R=\{W_{DBaaS}, L\}$. An MI interested in sensitive information about an entity $\mathbb{T}$ as a target. Information about $\mathbb{T}$ is stored in the collection $D_i$ in form of document-store or set of $\langle key, value \rangle$ pair(s). The MI has one initial document stored in the one collection $D_i$, and his goal is to obtain sensitive attributes of $\mathbb{T}$. We analyze the associated risk factors of cloud DBaaS as a result of actions of a MI.\\
+
+
+%*************************************************
+\subsubsection*{Confidentiality violation risk}
+\label{subsec:ConfidentialityViolation}
+%*************************************************
+A MI misuses the existing privileges to gain further access to sensitive information without any trace of intrusion. Internal attacks are very hard to detect because the users are authenticated on the domain.\\
+\textbf{Mitigation:} Cryptographic schemes should be considered by the data owner to encrypt data before outsourcing it to the cloud. Meanwhile, processing over encrypted data without decryption is essential requirement that put restriction to cryptographic schemes selection.\\
+
+\noindent A MI can extract an encrypted sensitive attribute $\hat{A}=\langle E_k(key), E_k(value) \rangle$ about $\mathbb{T}$ stored in collection $D_i$ by iteratively calling the correlation function to the rest of collections $\Psi (D_i, D_j)$. One single element can be classified in different level of importance in variety of organizations. The MI in DBaaS can exploit this  difference in the aggregated data pool to violate confidentiality of sensitive attributes. It can be shown that two collections $D_i$ and $D_j$ that initially do not share any documents, but later on it turns out to be they both have common documents that are describing the same entity $\mathbb{T}$. Therefore, the MI maintains a list of the explored collections, and we have a \emph{binomial distribution} with parameters $n \in \mathbb{N}$ as a number of collections and $p \in [0,1]$ as success probability of each collection. The problem is sampling with replacement and the probability of finding $k$ sensitive documents in $n$ collections of the cloud warehouse $W_{DBaaS}$. The reason for sampling with replacement is, If $\Psi(D_r, D_s)==false$, but due to discovery of a new correlation $\Psi(D_s, D_t)==true$ the new extracted attribute(s) can change $\Psi(D_r, D_s)$ to true. The function defining discrete probability distribution of $k$ documents from exploring $n$ collections is:   
+
+\begin{equation}
+\label{binomialDistribution}
+f(k;n,p) = {{n} \choose {k}}p^{k}(1-p)^{n-k}
+\end{equation}
+The mean value and the variance of $f(k;n,p)$ are
+\begin{equation}
+median = n \times p  \qquad \sigma_{f} = n \times p (1-p).
+\end{equation}
+
+The probability of extraction one sensitive attribute from the $n$ collections is:
+\begin{equation}
+\label{oneSuccess}
+f(1;n,p) = n\times p\times(1-p)^{n-1}
+\end{equation}
+
+The probability distribution of successful extraction of zero document related to the $\mathbb{T}$ from  entire $W_{DBaaS}$ is
+
+\begin{equation}
+\label{zeroSuccess}
+f(0;n,p) = (1-p)^{n}.
+\end{equation}
+ 
+%*************************************************
+\subsubsection*{Integrity violation (active attack) risk}
+\label{subsec:IntegrityViolation}
+%*************************************************
+An integrity violation can happen in a cloud data store by unauthorized modification of data.\\
+\textbf{Mitigation}: The \emph{integrity verification} mechanism ensures data is only modified by an authorized valid user, and identifies integrity violation done by an  MI. We introduced \emph{query integrity verification} tamper-resistant algorithm which is built on Message authentication codes (MAC). By appending a new attribute to each document denoted as \emph{eTag}, containing a value which is keyed hash value of whole document. Detail of this method is discussed in subsection \ref{QueryintegrityVerificationSubSec}.\\
+
+Sensitive documents in the cloud DBaaS are in risk of unauthorized modification by a MI. Maintaining data integrity in the stored collections is a crucial necessity in the outsourced datasets. Detection of unauthorized modification can be done by Message Authentication Code (MAC) over sensitive documents. Similar to digital signature, MAC appends an authentication \textit{eTag} to any document. The building block of MAC is a keyed-hash function to generation/verification of eTag. A data owner generates $\langle eTag, E_k(d_i)\rangle$ and appends as a new attribute to all given documents, later on the verification process grantees the authenticity and integrity of documents as presented in Equation \ref{eTag}.   
+\begin{equation}
+\label{eTag}
+\begin{aligned}
+&Verification: \\
+&eTag^{'}= MAC_k(document); \begin{cases}
+&if (eTag==eTag^{'}) \implies ~ Document~is~valid.\\
+&else~ Document~ is~ invalid. 
+\end{cases}
+\end{aligned}
+\end{equation}
+
+
+
+%*************************************************
+\subsubsection*{Information leakage risk}
+\label{subsec:InformationLeakageRisk}
+%*************************************************
+Encrypted databases are prone to information leakage, for instance deterministic and OPE cryptographic schemes always leak frequency and the order of plaintext data respectively. Subsequently, with a simple frequency analysis or sorting attack, MIs are able to obtain sensitive information. Later on, with an inference attack they combine leaked data with information in the other databases in the same cloud DBaaS or a public domain to hack the database.
+ 
+\textbf{Mitigation}: We propose a method of \emph{Selective Disinformation Document Padding (SPDP)} to hinder information extraction, while avoiding overhead of disinformation document padding. SPDP uses diagnostic metrics such as precision, recall and statistical analytics to periodically probe the dataset for the existence of the possible explicit and/or implicit correlations between data elements. Thereafter, the detected leakage is compared to the maximum acceptable level of leakage. If the result exceeds the maximum level (determined by the data owner), SPDP generates a certain number of fake documents to be inserted into the dataset in order to decrease the amount of leaked information. The number of generated disinformation documents depends on the significance of the leakage metrics.\\
+
+The flexibility of NoSQL databases in terms of having different number of attributes corresponding to each document, helps us to create light-weight documents in order to mitigate data overhead in the DBaaS server. All the original and disinformation documents are encrypted and semantically indistinguishable from the MI’s point of view. The ciphertext dataset is processed by a standard cloud DBaaS, in a similar way to the plaintext data. In addition, the indexes in database are used to improve query processing time by shrinking the search space. Correspondingly, by indexing the encrypted data elements, a remarkable improvement is achievable in query processing time.
+
+The dynamic nature of a dataset as a persistent storage necessitate to have basic operations to create, read, update and delete (known as CRUD). The augmented dataset (with disinformation documents), naturally are subjected to CRUD operations.  The create and read operations act on the augmented dataset in a similar way to a normal dataset, while the update/delete operations on the original documents should be projected on the corresponding disinformation documents. For the performance purpose, the update/delete operations on the related disinformation documents, can be processed immediately or in lazy fashion, postponed to the next period of the data analysis.
+Furthermore, the garbage collector service, run by the proxy, can be developed to delete any unrelated disinformation from the dataset. The design and development of such a service is beyond the scope of the current work. 
+
+The probability for the one attribute to be extracted from $n$ collections is given by Equation \ref{oneSuccess}. For leakage minimization purpose, at the any leakage points $\mathcal{V}$ disinformation documents generated and inserted to the collection. The leakage point are detectable by using the two methods that are introduced in this work. In particular, insertion of $\mathcal{V}$ disinformation documents creates $\mathcal{V}$ branches from each one of documents to the other correlated documents. Ultimately, the result is a full tree-like structure with $\mathcal{V}+1$ branch factor which requires exponentially computation from MI to extract number of attributes. The number of branches in proportional to height $h$ is:    
+
+\begin{equation}
+\label{numberOfNodes}
+N = 1+\mathcal{V}+ \mathcal{V}^2+ \dots + \mathcal{V}^h= \frac{\mathcal{V}^{h+1}-1}{\mathcal{V}-1}.
+\end{equation}
+
+Thus, the new probability distribution function is
+\begin{equation}
+\label{attibutesFromDilutedDB}
+f(k;n,p) = \prod_{i=0}^{\mathcal{V}} {{N} \choose {k}}p^{\frac{k}{i}}(1-p)^{N-k}.
+\end{equation}
+
+%*************************************************
+\subsection{Query integrity verification}
+\label{QueryintegrityVerificationSubSec}
+%*************************************************
+DBaaS could be subject of passive or active attack by a MI. In passive attack an attacker attempts to uses all tools and credentials to gain information about a specific target without changing the data. Particularly, passive attacks are designed to violate confidentiality of the targeted entity. However, in an active attack, the MI exploits cloud DBaaS to conduct unauthorized data modification on the target. In other word, the goal of an active attack is integrity violation.
+
+To address the query integrity verification, we propose a method that effectively identifies and filters out the invalid documents from query response at the proxy side. First, the data owner adds a new attribute to the original documents, denoted as \emph{eTag}. Next, a single token is required to identify valid documents, i.e. a 32-byte secret keyword. In order to achieve data integrity and eliminate the risk of unauthorized data modification, we considered a document digest which is computable by a cryptographic hash function. In the next step, the data owner needs to encrypt the concatenation of token and digest with RND cryptosystem for each of the documents to store the output as a value for eTag. Now, it is time to create $\mathcal{V}$ number of disinformation documents with minimum precision and recall value to be inserted into the dataset. For instance, for a collection containing $10^6$ documents and $\mathcal{V}=10$, we need to insert $10$ fake documents per each original document in the collection. According to semantic security principle, the original and fake documents should be indistinguishable. Thus, the same steps for creation of eTag are needed to be conducted for the fake documents with a new token for identification purpose.
+
+In particular, each valid document is an equivalent class for $\mathcal{V}$ documents that have diverse value for semi-identifier attributes to prevent identity disclosure. Because of this feature this method is denoted as $\mathcal{V}$- anonymity. Finally, the attributes of real and fake documents are encrypted according to the security plan and forwarded to the DBaaS in the cloud. Figure \ref{fig:QueryIntegrityVerification} illustrates the process of eTag calculation for the documents.
+
+%Figure
+\begin{figure}[H]
+\centering
+\resizebox{0.7\textwidth}{!}{\input{figures/eTag.tex}}
+\caption{The high level diagram of \textit{query integrity verification} technique.}
+\label{fig:QueryIntegrityVerification}
+\end{figure}
+
+The proxy decrypts eTag value with the decryption key and verifies the tag of original documents from the query response and filters out the disinformation documents. The MAC are used to protect against any unauthorized modifications of documents. With the mechanism of digital signature that implemented in eTag, the proxy verifies the authenticity of whole document with recalculation of document digest and verification with the digest. The digital signature of the documents adds a small overhead to the documents, however it guarantees the document never gets modified by cloud insiders. Intuitively, eTag is not involved in a query processing and this attribute will be used for the internal structure for providing integrity of data store.\\
+
+In order to minimize the information leakage, we propose to encrypt attributes which are low level granularity with RND cryptosystems. Equation \ref{eq:NonDeterminsticEncryption} outlines RND (non-deterministic) encryption function constructed from a deterministic one. First we associate a unique fixed length random number $r$, with each document. With application of eTag, the risk of active attack and unauthorized modification by third party is detectable in the verification phase in the proxy.
+
+
+\begin{equation}
+\label{eq:NonDeterminsticEncryption}
+\begin{aligned}
+& E_k (x) = E^{\prime}_k (x \left\lvert \right\rvert r) \\ 
+\end{aligned}
+\end{equation}
+Where: k is the encryption key; $E^{\prime}$ is a DET encryption; r is a random number.\\
+
+The crypto-hash functions are building blocks of the introduced query integrity verification algorithm, and therefore, having an efficient hash function leads to low latency integrity verification. We examined the performance of four popular hash functions according to the variety of document size. The result is displayed in Figure \ref{fig:hashPerformance}. Considering the performance and security metrics, we select \emph{SHA1} over other hash functions including MD5, RIPEMD and SHA256 to be used in eTag algorithm. As it can be observed from Figure \ref{fig:hashPerformance}, the reason of selection of SHA1 is its high performance (speed) at different input documents sizes.
+
+%Figure
+\begin{figure}[H]
+\centering
+\resizebox{0.6\textwidth}{!}{\input{figures/hashPerformance.tex}}
+\caption{Performance of four popular cryptographic hash functions in respect to document size.}
+\label{fig:hashPerformance}
+\end{figure}
+
+\noindent The information leakage due to attribute correlation is investigated in the next section.
+

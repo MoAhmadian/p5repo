@@ -1,0 +1,28 @@
+%*************************************************
+\section{Metric for explicit information leakage}
+\label{app:primaryMetric}
+%*************************************************
+
+We define a notion to show what portion of disinformation is valid, by adapting {\it precision}, {\it recall} and {\it F-Measure} from information retrieval and binary classification literature \cite{davis2006relationship}. In general, precision\footnote{Indicates how many relevant items are selected }, recall\footnote{Indicates how many selected items are relevant} and F-Measure\footnote{ Harmonic mean of precision and recall} are simple metrics for quantifying valid information found inside any given document. The precision takes all attributes of document $d$ into account fo find the number of those attributes which are member of the super-document of attributes. The higher precision value means more common attributes that increases the probability of being merged into the super-document provided that at least of the attributes is from identifier class or group of them are semi-identifier. In this case, the uncommon attributes are considered as leaked information. The recall measures the strength of merge capability of a pair of documents (see Equation \ref{eq:leakageMetrics}). Precision of document $d$ denoted as $P_d$ which is a fraction of information in document $d$ with respect to super-document  $\delta$ containing attributes that their authenticity is established. \textit{Recall} and \textit{F-Measure} for document $d$ are denoted as $R_d$ and $F_{1}$ respectively:
+\begin{equation} 
+\label{eq:leakageMetrics}
+\begin{aligned}
+P_d=\frac{\left\lvert d \cap \delta \right\rvert}{\left\lvert d \right\rvert},\qquad 
+R_d=\frac{\left\lvert d \cap \delta \right\rvert}{\left\lvert \delta \right\rvert},\qquad
+F_{1}=\frac{2 \times P_d \times R_d}{P_d + R_d}
+\end{aligned}
+\end{equation}
+
+The concepts of precision and recall based on document and super-document are demonstrated in more detail with an example. By definition, the super-documents includes all the accurate attributes ($A_i$) related to an object of interest. The document, on the other hand, includes inaccurate and/or fake attributes ($\mathcal{F}_j$). The fake documents are actually the noisy documents (disinformation) which is added to the collection in order to minimize the information leakage. A small fraction of document includes accurate attributes and the remaining are false. If the common attributes between the document and super-document are minimized, the lower information leakage is warranted. Consider Figure \ref{fig:PrecisionRecall} in which super-document $\delta$, includes $8$ accurate attributes and document $\delta$ includes $5$ (i.e. $2$ accurate and $3$ fake) attributes.\\
+
+%Figure in the tex file
+\input{figures/PrecisionRecall.tex}
+
+\begin{align*}
+\delta&=\{A_1,~A_2,~A_3,...,~A_8\}\\
+\rho&=\{A_1,~A_3,~\mathcal{F}_1,~\mathcal{F}_2,~\mathcal{F}_3\}\\
+\rho \cap \delta &=A_1,~A_3; \qquad \left\lvert \rho \cap \delta \right\rvert=2\\
+P_{\rho}&=\frac{\left\lvert \rho \cap \delta \right\rvert}{\left\lvert \rho \right\rvert} = \frac{2}{5},\qquad 
+R_{\rho}=\frac{\left\lvert \rho \cap \delta \right\rvert}{\left\lvert \delta \right\rvert}= \frac{2}{8},\qquad
+F_{1}=\frac{2 \times P_{\rho} \times R_{\rho}}{P_\rho + R_\rho}= \frac{0.2}{0.65}=0.307
+\end{align*}

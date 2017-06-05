@@ -1,0 +1,29 @@
+\begin{tikzpicture}[scale=1.0,trim axis right, trim axis right]
+\begin{axis}[
+compat=newest, 
+legend style={at={(0.02,0.97)},anchor=north west},
+ybar,
+enlargelimits=0.12,
+height=10cm,width=16cm,
+bar width=20pt,
+ylabel={Error Percentage},
+symbolic x coords={{Health-Finance},{Social-Phone},{Phone-Health}},
+xtick=data,
+nodes near coords align={vertical}
+,grid=major
+,cycle list = {white,black!10,black!40,black!10,black!10}
+]
+\addplot+[fill=gray!80,text=black, area legend, draw=black,error bars/.cd,
+y dir=both,y explicit] coordinates { %10000 documents
+({Health-Finance},0.6)
+({Phone-Health},0.3) 
+({Social-Phone},1.1)
+};
+\addplot+[fill,text=black,  area legend,draw=black,pattern=north east lines,error bars/.cd, y dir=both,y explicit] coordinates { %100000 documents
+({Health-Finance},0.02)
+({Phone-Health},0.02) 
+({Social-Phone},0.95)
+};
+\legend{Sample size $10^4$, Sample size $10^5$}
+\end{axis}
+\end{tikzpicture}

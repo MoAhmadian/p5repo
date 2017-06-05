@@ -1,0 +1,25 @@
+\begin{tikzpicture}[scale=1.1,thick]
+\usetikzlibrary{calc}
+\coordinate (A) at (-5,2.5);
+\node at (A) [above = 2mm of A] {\Large $0$};
+
+\coordinate (B) at (5,2.5);
+\node at (B) [above = 2mm of B] {\Large $1$};
+
+\draw[decorate,decoration={brace,raise=35pt,amplitude=5pt}] 
+  (A) -- node[fill=white, inner sep=1pt,above left=45pt and -50pt]{Tightness of bounds} (B);
+
+
+\draw [line width=0.35mm,black](A)--(B)[right];
+\draw[densely dotted] (3,2.8) -- (3,2.2) node [below] {Markov inequality}; 
+\draw[densely dotted] (3.01,2.8) -- (3.01,2.2);
+
+\draw[densely dotted] (0,2.8) -- (0,1.5) node [below] {Chebyshev's inequality};
+\draw[densely dotted] (0.01,2.8) -- (0.01,1.5);
+
+\draw[densely dotted] (-4,2.8) -- (-4,0.8) node [below] {CLT close-form};
+\draw[densely dotted] (-4.01,2.8) -- (-4.01,0.8);
+
+\fill [purple] (A) circle (4pt);
+\fill [purple] (B) circle (4pt);
+\end{tikzpicture}

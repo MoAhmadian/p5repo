@@ -1,0 +1,39 @@
+% Draw background
+\newcommand{\background}[5]{%
+\begin{pgfonlayer}{background}
+% Left-top corner of the background rectangle
+\path (#1.west |- #2.north)+(-0.5,0.25) node (a1) {};
+% Right-bottom corner of the background rectanle
+\path (#3.east |- #4.south)+(+0.5,-0.25) node (a2) {};
+% Draw the background
+\path[fill=gray!20,rounded corners, draw=black!50, dashed]
+(a1) rectangle (a2);
+\path (#3.east |- #2.north)+(0,0.25)--(#1.west |- #2.north) node[midway] (#5-n) {};
+\path (#3.east |- #2.south)+(0,-0.35)--(#1.west |- #2.south) node[midway] (#5-s) {};
+\path (#3.east |- #2.north)+(0.7,0)--(#3.east |- #4.south) node[midway] (#5-w) {};
+\end{pgfonlayer}}
+
+\newcommand{\transreceptor}[3]{%
+\path [linepart] (#1.east) -- node [above]
+{\scriptsize #2} (#3);}
+
+% Define block styles
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=white]
+\tikzstyle{process} = [rectangle, minimum width=3.0cm, minimum height=1cm, text centered, draw=black, fill=white]
+\tikzstyle{decision} = [diamond, draw, fill=white, 
+text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,minimum height=2em]
+\tikzstyle{arrow} = [thick,->, >=stealth]    
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=white]
+%=============================================
+% Defined for chart and background
+\tikzstyle{square}=[rectangle,thick,minimum size=0.5cm,draw=blue!80,fill=blue!20]
+\tikzstyle{vspecies}=[rectangle,thick, text centered, drop shadow, minimum size=0.5cm,draw=black,fill=white]
+\tikzstyle{invspecies}=[rectangle,thick, text centered, minimum size=0.5cm,draw=black,fill=white]
+\tikzstyle{square}=[rectangle,thick,minimum size=0.5cm,draw=red!80,fill=blue!20]
+\tikzstyle{fspecies}=[rectangle, minimum size=0.5cm,draw=red!80,fill=red!20]
+\tikzstyle{ur}=[draw, text centered, minimum height=0.01em]
+\tikzstyle{linepart} = [draw, thick, color=black!50, -latex', dashed]
+\tikzstyle{database}= [ cylinder, cylinder uses custom fill,cylinder body fill=white, cylinder end fill=white, shape border rotate=90,      aspect=0.20, draw]
+%=====================================================

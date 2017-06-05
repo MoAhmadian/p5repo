@@ -1,0 +1,98 @@
+%*************************************************
+\section{Leakage quantify algorithms} 
+\label{app:Algorithms}
+%*************************************************
+\begin{algorithm}[H]
+\caption{Construction of super document for an entity from multiple data collection}
+\label{algo:ExractingLeakedInformation}
+\begin{algorithmic}[1]
+\Require{$S \subseteq W_{DBaaS},~\varepsilon$}
+\Comment{$S$ is a set of collections, and $\varepsilon$ is an entity with document $d_i$}
+\Procedure{SuperDocument}{$S$,$\varepsilon$}
+\State  $L \gets \emptyset, ~\left\lvert \delta_{\varepsilon}\right\rvert \gets \{d_i\}$
+\For{collection $D_j \in S$}
+\For{document $d_k ~\in ~ D_j$}
+\If{$(\mu(\delta_{\varepsilon},d_k)==TRUE)$}
+\State $L_{\varepsilon} \gets \{New~arributes\}$
+\State Update $\delta_{\varepsilon}$
+\State Back Track
+\Else \State continue
+\EndIf
+\EndFor
+\EndFor
+\State \textbf{return} $\delta_{\varepsilon}$ 
+\Comment{Super document of entity $\varepsilon$}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}[H]
+\caption{Quantifying the mutual information of attributes from two data sources}
+\label{algo:mutualInformation}
+\begin{algorithmic}[1]
+\begin{varwidth}[t]{\linewidth}
+\Require{$S,~T$ : Source and Target data vector, $n$ Length of vector non-empty $n > 1$}
+%\item[]
+\Procedure{MutualInformation}{$S$,$T$,$n$}
+%\Comment{$I(X;Y) = \sum p(xy) * \log (p(xy)/p(x)p(y))$} 
+\State $sProbs \gets calculateProbility(S,n)$  
+\Comment{Probability vector of $S$}
+\State $tProbs \gets calculateProbility(T,n)$ 
+\Comment{Probability vector of $T$}
+\State $MutualInformation \gets 0.0 $
+\State $jointProbVector= calculateJointProbability(sProbs,tProbs,n)$
+
+\For{$(i \in n^2 )$}
+\State $firstIndex=i\mod n$
+\State $secondIndex=i /n$
+\If{$((jointProbVector[i]>0)$\par
+\hskip\algorithmicindent $\&~(sProbs[firstIndex]>0)$\par
+\hskip\algorithmicindent $ \&~(tProbs[secondIndex]>0))$\par
+\hskip\algorithmicindent }
+\State $mutualInformation\bm{+=}$\par
+\hskip\algorithmicindent $jointProbVector[i] \bm{ \times}\log(jointProbVector[i] \bm{/}$\par \hskip\algorithmicindent $(sProbs[firstIndex] \bm{\times} tProbs[secondIndex]))$
+\EndIf
+\EndFor
+\State   $mutualInformation \bm{/=} \log(2.0)$
+\State \textbf{return} $mutualInformation$
+\EndProcedure
+\end{varwidth}
+\end{algorithmic}
+\end{algorithm}
+\medskip
+
+
+\begin{algorithm}[H]
+\caption{Selective disinformation insertion algorithm}
+\label{algo:disnformation}
+\begin{algorithmic}[1]
+\Require{$D$}
+\Comment{Original dataset}
+\Require{$\mathcal{V}$}
+\Comment{Rate of disinformation to information}
+\Require{$T$}
+\Comment{Acceptable level of leakage}
+\Ensure $\widetilde{D}$
+\Comment{Data set diluted with disinformation documents}
+\item[]
+\Procedure{diluteDatabase}{$D, \mathcal{V}, T$}
+\State $\Psi \gets evaluateLeakage(D)$
+\Comment{Statistical analysis}
+\State $\tau \gets \mathcal{V}$
+\For{\textbf{each} (pair $d_i,d_j$ in $D$)}
+\If{$(\Psi.L(d_i,d_j)> T)$}
+\While {$(\tau)$}
+\State $\rho \gets\ createDisInformation(d_i,d_j)$
+\Comment {New disinformation document $\rho$ is created.}
+\State $insertToDatabase(D, \rho)$
+\State $\tau \gets \tau-1$
+\EndWhile
+\EndIf
+\EndFor
+\State \textbf{return} $D$ 
+\Comment{Diluted dataset}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+\medskip

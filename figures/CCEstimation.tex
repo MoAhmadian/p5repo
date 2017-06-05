@@ -1,0 +1,37 @@
+\begin{tikzpicture}[scale=1.0,trim axis right, trim axis right]
+\begin{axis}[
+compat=newest, 
+legend style={at={(0.02,0.97)},anchor=north west},
+ybar,
+enlargelimits=0.12,
+height=10cm,width=16cm,
+bar width=20pt,
+ylabel={Cross-correlation size},
+symbolic x coords={{Health-Finance},{Social-Phone},{Phone-Health}},
+xtick=data,
+nodes near coords align={vertical}
+,grid=major
+,cycle list = {white,black!10,black!40,black!10,black!10}
+]
+
+\addplot+[fill=gray!80,text=black, draw=black, area legend,error bars/.cd,
+y dir=both,y explicit] coordinates { %10000 documents
+({Health-Finance},3123300)
+({Phone-Health},5031080) 
+({Social-Phone},4281100)
+};
+\addplot+[fill,text=black,  area legend,draw=black,pattern=north east lines,error bars/.cd, y dir=both,y explicit] coordinates { %100000 documents
+({Health-Finance},3115910)
+({Phone-Health},5036000) 
+({Social-Phone},4265620)
+};
+\addplot+[fill,text=black, draw=black,  area legend,postaction={pattern=crosshatch},error bars/.cd, y dir=both,y explicit] coordinates { %Original correlation
+({Health-Finance},3117847)
+({Phone-Health},5033764) 
+({Social-Phone},4170712)
+};
+\legend{Sample size $10^4$, Sample size $10^5$,Actual cross-correlations}
+\end{axis}
+\end{tikzpicture}
+%\caption{}
+%\label{fig:CCEstimation}

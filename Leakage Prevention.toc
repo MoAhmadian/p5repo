@@ -1,0 +1,28 @@
+\contentsline {section}{\numberline {1}Introduction and motivation}{2}{section.1}
+\contentsline {section}{\numberline {2}Security schemes for cloud database services}{4}{section.2}
+\contentsline {section}{\numberline {3}System models and assumptions}{8}{section.3}
+\contentsline {subsection}{\numberline {3.1}Basic concepts}{8}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}The threat model}{9}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}The risk model}{9}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Query integrity verification}{13}{subsection.3.4}
+\contentsline {section}{\numberline {4}DBaaS information leakage management}{15}{section.4}
+\contentsline {subsection}{\numberline {4.1}Attribute correlation leakage prevention with disinformation}{16}{subsection.4.1}
+\contentsline {subsubsection}{\numberline {4.1.1}Explicit correlation}{16}{subsubsection.4.1.1}
+\contentsline {subsubsection}{\numberline {4.1.2}Implicit correlation}{20}{subsubsection.4.1.2}
+\contentsline {subsection}{\numberline {4.2}Performance cost and mitigations of disinformation}{21}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Results and discussion}{22}{subsection.4.3}
+\contentsline {section}{\numberline {5}Approximate query processing}{23}{section.5}
+\contentsline {subsection}{\numberline {5.1}Error bounds}{24}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Sampling methods}{25}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Results and discussion}{26}{subsection.5.3}
+\contentsline {subsubsection}{\numberline {5.3.1}Experimental setup:}{26}{subsubsection.5.3.1}
+\contentsline {subsubsection}{\numberline {5.3.2}AQP based sensitivity analysis}{26}{subsubsection.5.3.2}
+\contentsline {subsubsection}{\numberline {5.3.3}Discussion}{28}{subsubsection.5.3.3}
+\contentsline {section}{\numberline {6}Cross-correlation in DBaaS warehouse}{29}{section.6}
+\contentsline {subsection}{\numberline {6.1}Cross-correlation size estimation}{31}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Performance evaluation and experiments}{31}{subsection.6.2}
+\contentsline {section}{\numberline {7}Conclusions and future work}{32}{section.7}
+\contentsline {section}{Appendices}{33}{section*.22}
+\contentsline {section}{Appendix \numberline {A}Leakage quantify algorithms}{34}{Appendix.a.A}
+\contentsline {section}{Appendix \numberline {B}Metric for explicit information leakage}{35}{Appendix.a.B}
+\contentsline {section}{Appendix \numberline {C}Metric for implicit information leakage}{36}{Appendix.a.C}

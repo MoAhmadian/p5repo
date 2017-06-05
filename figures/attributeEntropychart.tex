@@ -1,0 +1,98 @@
+\begin{figure}[H]
+\hspace*{\fill}%
+\begin{minipage}[t]{0.47\linewidth}
+\centering
+\vspace{0pt}
+\begin{tabular}{|c|cc|}
+\hline
+\multicolumn{1}{|c|}
+{\textbf{Db size}} & \multicolumn{2}{c|}
+{\textbf{Entropy}}\\
+\hline
+Document\# & Normal & Uniform\\
+\hline \hline
+2      &0.5  & 1    \\ 
+10     &2.3  & 3.32 \\
+$10^2$ &5.4  & 6.64 \\
+$10^3$ &8.4  & 9.97 \\
+$10^6$ &15.4 & 19.93\\
+$10^9$ &21.7 & 29.9 \\
+\hline
+\end{tabular} 
+%\par\vspace{0pt}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+\centering
+\vspace{0pt}
+\begin{tikzpicture}
+\begin{axis}[legend style={at={(0,0)},anchor=west,at={(axis description cs:1.05,0.45)}},    title={},
+xlabel={Number of documents},
+xmode = log,        % logarithmic x axis
+legend pos=north west,
+ylabel={Entropy},
+axis background/.style={fill,bottom color=gray!50,top color=white},
+grid=major,
+height=5.8cm,width=8cm,
+grid style={dotted,black}]
+\addplot+ coordinates {
+(2,1)
+(10,3.32)
+(100,6.64)
+(1000,9.97)
+(1000000,19.93)
+(1000000000,29.9)
+};
+\addlegendentry{Uniform}
+\addplot+ coordinates {
+(2,0.5)
+(10,2.3)
+(100,5.4)
+(1000,8.4)
+(1000000,15.4)
+(1000000000,21.7)
+};
+\addlegendentry{Normal}
+\end{axis}
+\end{tikzpicture}
+\end{minipage}%
+\caption{Entropy of an attribute in a data set with uniform and normal distribution.}
+\label{attributeEntropy}
+\end{figure}
+
+%\begin{figure}[H]
+%\begin{center}
+%\begin{tikzpicture}
+%\begin{axis}[legend style={at={(0,0)},anchor=west,at={(axis description cs:1.05,0.45)}},    title={},
+%xlabel={Number of documents},
+%xmode = log,        % logarithmic x axis
+%legend pos=north west,
+%ylabel={Entropy},
+%axis background/.style={fill,bottom color=gray!50,top color=white},
+%grid=major,
+%height=6cm,width=8cm,
+%grid style={dotted,black}
+%]
+%\addplot+ coordinates {
+%(2,1)
+%(10,3.32)
+%(100,6.64)
+%(1000,9.97)
+%(1000000,19.93)
+%(1000000000,29.9)
+%};
+%\addlegendentry{Uniform}
+%\addplot+ coordinates {
+%(2,0.5)
+%(10,2.3)
+%(100,5.4)
+%(1000,8.4)
+%(1000000,16.4)
+%(1000000000,23.7)
+%};
+%\addlegendentry{Normal}
+%\end{axis}
+%\end{tikzpicture}
+%\caption{Entropy of an attribute in sample database with normal and uniform distribution}
+%\label{chart:entropyComparison}
+%\end{center}
+%\end{figure}

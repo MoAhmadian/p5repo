@@ -1,0 +1,71 @@
+\begin{tikzpicture}[thick]
+\node (db1) [cylinder, fill=gray!30,shape border rotate=90,draw,minimum height=5cm,minimum width=6cm,shape aspect=1] {\huge Database $D$};
+
+\node (s1) [cylinder,below left=3.0cm and 6.0cm of db1,fill=white,shape border rotate=90,draw,minimum height=3cm,minimum width=2cm,shape aspect=1] {\Large $Sample_1$};
+
+\node (s2) [cylinder,below left = 3.0cm and 0.001cm of db1,fill=white,shape border rotate=90,draw,minimum height=3cm,minimum width=2cm,shape aspect=1] {\Large $Sample_2$};
+
+\node (sn) [cylinder,below right= 3.0cm and 5.0cm of db1,fill=white,shape border rotate=90,draw,minimum height=3cm,minimum width=2cm,shape aspect=1] {\Large $Sample_n$};
+
+%s_1
+\node (s1s1) [cylinder,below =1.0cm of s1,fill=white,shape border rotate=90,draw,minimum height=2cm,minimum width=1cm,shape aspect=0.75] {\large sample};
+
+%s_2
+\node (s1s2) [cylinder,below = 1.0cm of s2,fill=white,shape border rotate=90,draw,minimum height=2cm,minimum width=1cm,shape aspect=0.75] {\large sample};
+
+%s_n
+\node (s1sn) [cylinder,below=1.0cm of sn,fill=white,shape border rotate=90,draw,minimum height=2cm,minimum width=1cm,shape aspect=0.75] {\large sample};
+
+
+
+%s_1
+\node (s1s1s1) [cylinder,below =1.0cm of s1s1,fill=white,shape border rotate=90,draw,minimum height=0.5cm,minimum width=1cm,shape aspect=0.75] {sample};
+
+%s_2
+\node (s1s1s2) [cylinder,below = 1.0cm of s1s2,fill=white,shape border rotate=90,draw,minimum height=0.5cm,minimum width=1cm,shape aspect=0.75] {sample};
+
+%s_n
+\node (s1s1sn) [cylinder,below=1.0cm of s1sn,fill=white,shape border rotate=90,draw,minimum height=0.5cm,minimum width=1cm,shape aspect=0.75] {sample};
+
+
+\draw[->, >=latex, gray!100, line width=5pt,rotate=-90]   (db1) to node[black]{} (s1) ;
+\draw[->, >=latex, gray!100, line width=5pt,rotate=-90]   (db1) to node[black]{} (s2) ;
+\draw[->, >=latex, gray!100, line width=5pt,rotate=-90]   (db1) to node[black]{} (sn) ;
+
+\draw[->, >=latex, gray!100, line width=5pt,rotate=-90]   (s1) to node[black]{} (s1s1) ;
+\draw[->, >=latex, gray!100, line width=5pt,rotate=-90]   (s2) to node[black]{} (s1s2) ;
+\draw[->, >=latex, gray!100, line width=5pt,rotate=-90]   (sn) to node[black]{} (s1sn) ;
+
+\draw[->, >=latex, gray!100, line width=5pt,rotate=-90]   (s1s1) to node[black]{} (s1s1s1) ;
+\draw[->, >=latex, gray!100, line width=5pt,rotate=-90]   (s1s2) to node[black]{} (s1s1s2) ;
+\draw[->, >=latex, gray!100, line width=5pt,rotate=-90]   (s1sn) to node[black]{} (s1s1sn) ;
+
+
+\fill[black] (1.5,-5.5) circle (0.15cm);
+\fill[black] (2.5,-5.5) circle (0.15cm);
+\fill[black] (3.5,-5.5) circle (0.15cm);
+
+\node [draw,below= 1.0cm of s1s1s1](aggregate1){\LARGE Aggregate query $\hat{\theta}$};
+\node [draw,below= 1.0cm of s1s1s2](aggregate4){\LARGE Aggregate query $\hat{\theta}$};
+\node [draw,below= 1.0cm of s1s1sn](aggregate7){\LARGE Aggregate query $\hat{\theta}$};
+
+%\draw[vecArrow] (s1s1s1) to (aggregate1);
+%\draw[vecArrow] (s1s1s2) to (aggregate4);
+%\draw[vecArrow] (s1s1sn) to (aggregate7);
+
+\draw[->, >=latex, gray!100, line width=5pt,rotate=-90]   (s1s1s1) to node[black]{} (aggregate1) ;
+\draw[->, >=latex, gray!100, line width=5pt,rotate=-90]   (s1s1s2) to node[black]{} (aggregate4) ;
+\draw[->, >=latex, gray!100, line width=5pt,rotate=-90]   (s1s1sn) to node[black]{} (aggregate7) ;
+
+%\draw[->, >=latex, gray!60!white, line width=5pt,rotate=-90]   (db1) to node[black]{Size} (s1) ;
+
+%
+\draw [decorate,decoration={brace,amplitude=15pt},xshift=0pt,yshift=0pt](-11,-12) -- (-11,-4)  node [black,midway] {};
+%
+\node[label={[label distance=0.5cm,text depth=-1ex,rotate=90]right:\LARGE Level of resampling}] at (-12.5,-12.0) {};
+
+%\coordinate (a) at (-10,-4);
+%\coordinate (b) at (-10,-12);
+%\draw[->, >=latex, gray!60!white, line width=15pt,rotate=-90]   (a) to node[black]{Size} (b) ;
+
+\end{tikzpicture}

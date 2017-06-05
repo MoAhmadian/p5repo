@@ -1,0 +1,49 @@
+\begin{tikzpicture}
+\begin{axis}[legend style={at={(0,0)},anchor=west,at={(axis description cs:1.05,0.45)}},    title={},
+ytick={0,100000,200000,300000,400000,500000,600000,700000,800000,900000},
+symbolic x coords={16,64,256,1024,8192},
+%ytick=data,
+xlabel={Document size (Bytes)},
+ylabel={Speed (KB/second)},
+scaled y ticks=false, 
+compat=newest, %Better
+legend pos=north west,
+%axis background/.style={fill,bottom color=gray!50,top color=white},
+grid=major,
+height=7.8cm,width=12cm,
+grid style={dotted,black}
+]
+\addplot+ coordinates {
+	(16,49292.32)      %16
+	(64,150689.13)     %64
+	(256,347740.76)    %256
+	(1024,520933.03)   %1024
+	(8192,608428.03)   %8192
+};
+\addlegendentry{MD5}
+\addplot+ coordinates {
+	(16,72490.62)      %16
+	(64,204046.66)     %64
+	(256,477543.25)    %256
+	(1024,723760.47)   %1024
+	(8192,848322.56)   %8192
+};
+\addlegendentry{SHA1}
+\addplot+ coordinates {
+	(16,40183.96)      %16
+	(64,95633.13)      %64
+	(256,172034.90)    %256
+	(1024,215498.41)   %1024 
+	(8192,231541.42)   %8192
+};
+\addlegendentry{RIPEMD}
+\addplot+ coordinates {
+	(16,66921.74)      %16
+	(64,152366.29)     %64
+	(256,289791.49)    %256
+	(1024,364940.63)   %1024 
+	(8192,393106.77)   %8192
+};
+\addlegendentry{SHA256}
+\end{axis}
+\end{tikzpicture}

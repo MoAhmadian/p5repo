@@ -1,0 +1,38 @@
+\begin{tikzpicture}[
+block/.style={rectangle,draw,fill=gray!20,text width=9em,text centered,rounded corners,minimum height=4em,node distance=0.4cm,auto},
+line/.style={draw,-latex',node distance= 2cm,auto}]
+
+\node [block] (a) {Confidentiality violation};
+\node [block, below=of a] (b) {Integrity violation};
+\node [block, below=of b] (c) {Information leakage};
+
+\node [block, right=of a] (sa) {Cryptosystems:\\AHOM, OPE, \\DET, RND };
+\node [block, right=of b] (sb) { Query verification};
+\node [block, right=of c] (sc) {1-Query tracking\\2-Selective insertion of disinformation};
+
+\node [block, right=of sa] (aa) {1-Confidentiality\\2-Full control\\ over data};
+\node [block, right=of sb] (ab) {Data authenticity};
+\node [block, right=of sc] (ac) {1-Leakage limitation\\ 2-Indistinguishable info. and disinfo};
+
+\node [block, right=of aa] (da) {1-Limited operations\\2-Computation cost};
+\node [block, right=of ab] (db) {1-Computation cost\\2-Token overhead};
+\node [block, right=of ac] (dc) {1-Data overhead\\2-Filter \& verification cost};
+
+\path [line] (a) -- node {}(sa);
+\path [line] (b) -- node {}(sb);
+\path [line] (c) -- node {}(sc);
+
+
+\path [line] (sa) -- node {}(aa);
+\path [line] (sb) -- node {}(ab);
+\path [line] (sc) -- node {}(ac);
+
+\path [line] (aa) -- node {}(da);
+\path [line] (ab) -- node {}(db);
+\path [line] (ac) -- node {}(dc);
+
+\node[label={\large Risk factor}]  at (-0.15,1) {};
+\node[label={\large Mitigation}]  at (4.0,1) {};
+\node[label={\large Advantage}]  at (8.5,1) {};
+\node[label={\large Disadvantage}]  at (13.0,1) {};
+\end{tikzpicture}

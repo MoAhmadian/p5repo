@@ -1,0 +1,139 @@
+\usepackage{etex}
+\usepackage{algorithm}% http://ctan.org/pkg/algorithms
+\usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
+\usepackage{mathtools} % Bonus
+\usepackage{hhline}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{decorations.text}
+\usepackage{tkz-graph}
+% ========= UCF================================
+\usepackage{graphicx}
+\graphicspath{ {figures/} }
+%==========Table ==============================
+\usepackage{threeparttable}  
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{bm}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage[font=small,skip=10pt]{caption} % caption font and distance
+\usepackage{subcaption}
+\usepackage{paralist}
+\usepackage{array} 
+\usepackage{algpseudocode}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage{url}
+\usepackage{multicol}
+\usepackage{helvet}
+\usepackage{courier}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{rotating}
+\usepackage{framed}
+%==========Enume ===============================
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*}
+%==========Plot ================================
+\usepackage{varwidth}% http://ctan.org/pkg/varwidth for formula indent
+
+\usetikzlibrary{shapes,arrows,automata,shadows}
+\usetikzlibrary{shapes.multipart}
+\usetikzlibrary{positioning}%,calc}
+\usepackage{pgfplots}
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+\pgfplotsset{width=7cm,compat=1.8}
+\usetikzlibrary{patterns}
+\usetikzlibrary{matrix,fit}
+%===========Listing ============================
+\usepackage{listings}
+\lstdefinelanguage{json}{
+    basicstyle=\small\sffamily,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{background},
+}
+%===========non italic math ====================
+%\usepackage[LGRgreek]{mathastext} 
+%===============================================
+\newtheorem{definition}{Definition}
+\definecolor{background}{HTML}{EEEEEE} %{EEEEEE}
+%============Draw document symbol]==============
+\makeatletter
+\pgfdeclareshape{document}{
+\inheritsavedanchors[from=rectangle] % this is nearly a rectangle
+\inheritanchorborder[from=rectangle]
+\inheritanchor[from=rectangle]{center}
+\inheritanchor[from=rectangle]{north}
+\inheritanchor[from=rectangle]{south}
+\inheritanchor[from=rectangle]{west}
+\inheritanchor[from=rectangle]{east}
+% ... and possibly more
+\backgroundpath{% this is new
+% store lower right \usepackage{float}
+in xa/ya and upper right in xb/yb
+\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+% compute corner of ‘‘flipped page’’
+\pgf@xc=\pgf@xb \advance\pgf@xc by-20pt % this should be a parameter
+\pgf@yc=\pgf@yb \advance\pgf@yc by-20pt
+% construct main path
+\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+\pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+\pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yb}}
+\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yc}}
+\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+\pgfpathclose
+% add little corner
+\pgfpathmoveto{\pgfpoint{\pgf@xc}{\pgf@yb}}
+\pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}
+\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yc}}
+\pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}
+}
+}
+
+%============Margin ==================================
+\setlength{\oddsidemargin}{0.005in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-0.8in}
+\setlength{\textheight}{8.9in}
+%=====================================================
+\tikzset{
+box1/.style={draw=black, thick, rectangle,rounded corners, minimum height=3cm, minimum width=3cm},
+box2/.style={draw=black, thick, rectangle, minimum height=4.5cm, minimum width=4.5cm},
+}
+%============ Arrow decoration =======================
+\usetikzlibrary{arrows, decorations.markings}
+% for double arrows a la chef
+% adapt line thickness and line width, if needed
+%\tikzstyle{vecArrow} = [thick, decoration={markings,mark=at position
+%   1 with {\arrow[semithick]{open triangle 60}}},
+%   double distance=1.4pt, shorten >= 5.5pt,
+%   preaction = {decorate},
+%   postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
+%\tikzstyle{innerWhite} = [semithick, white,line width=1.4pt, shorten >= 4.5pt]
+%========================================================
+%appendix
+\usepackage[title,titletoc,toc]{appendix}
+
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=black,  %choose some color if you want links to stand out
+	citecolor=black,
+    urlcolor=blue,
+}
+%========================================

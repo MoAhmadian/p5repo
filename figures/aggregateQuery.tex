@@ -1,0 +1,13 @@
+\begin{figure}[H]
+\begin{framed}
+{\ttfamily \small{ 
+\textbf{db[collection].aggregate}([\\
+\{\textbf{"\$group":}\{"\_id":\{"clearance":"\$clearance"\},\\ \textbf{"count":}\{"\$sum":1\}\}\},\\
+\{\textbf{"\$project":} \{  "count": 1, "percentage":\{
+\textbf{"\$concat":}[\{\textbf{"\$substr":}[\\\{\textbf{"\$multiply":}[\{\textbf{"\$divide":}["\$count", \{"\$literal":Sample size \}]\},100]\}, 0,6]\},"", "\%"]\}\}\}\\]);
+}
+}
+\end{framed}
+\caption{Aggregate query $\theta$ for sensitivity analysis of collection. This query will be executed on the original database and $100$ sample databases.}
+\label{fig:aggregate}
+\end{figure}

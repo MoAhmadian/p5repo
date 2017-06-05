@@ -1,0 +1,88 @@
+\tikzset{
+table nodes/.style={
+rectangle,
+draw=black,
+align=center,
+minimum height=6mm,
+text depth=0.5ex,
+text height=2ex,
+inner xsep=0pt,
+outer sep=0pt
+},      
+table/.style={
+matrix of nodes,
+row sep=-\pgflinewidth,
+column sep=-\pgflinewidth,
+nodes={
+    table nodes
+},
+execute at empty cell={\node[draw=none]{};}
+}
+}
+\tikzstyle{doc}=[%
+draw,
+thick,
+align=left,
+color=black,
+shape=document,
+minimum width=8mm,
+minimum height=5mm,
+]
+\begin{tikzpicture}[scale=0.8,align=left]
+\node (Info)[doc,fill=green!20, fill opacity=0.5,text opacity=1] {
+\begin{tikzpicture}
+\node[label={\textbf{Info doc}}] (A) at (-10,0) {};
+\matrix (B) [table,text width=15mm,below =-4mm of A, ampersand replacement=\&]
+{
+$Key_1$     \& $Value_1$\\
+...         \& ...\\
+$Key_n$     \& $Value_n$\\
+};
+\end{tikzpicture}
+};
+\node (DisInfo)[doc,below=2mm  of Info,fill=red!20, fill opacity=0.4,text opacity=1] {
+\begin{tikzpicture}
+\node[label={\textbf{Disinfo doc}}, color=black] (A) at (0,0) {};
+\matrix (B) [table,text width=15mm,below =-5mm of A,  ampersand replacement=\&]
+{
+$Key_1$     \& $Value_1$\\
+...         \& ...\\
+$Key_n$     \& $Value_n$\\
+};
+%\node [rectangle,text width=0.1cm,minimum height=0em,right= of B] (C) {};
+\end{tikzpicture}
+};
+\node[box1, fill=gray!20, fill opacity=0.3,text opacity=1, every text node part/.style={align=left}] (Enc) at (7,-1) {{\normalsize \\$Digest = Hash\{Document\}$\\ $eTag:\bm{E_k\{Token\Vert Digest\}}$};
+
+\node[box1, fill=gray!20, fill opacity=0.4,text opacity=1, every text node part/.style={align=left}] (eTag) at (14.5,-1) {{\underline{Encryption}}\\ \\{ $E_k(Key_1):E_k(Value_1)$} \\.. \\$E_k(Key_n):E_k(Value_n)$};
+\node (EncDoc)[doc,below=0.5  of eTag,fill=white, fill opacity=0.1,text opacity=1] {
+\begin{tikzpicture}
+\node[label={\textbf{Encrypted doc}}, color=black] (ED)  {};
+\matrix (B) [table,text width=22mm,below =-5mm of ED, ampersand replacement=\&]
+{
+$\color{red} \bm{eTag}$ \&$\color{red}\bm{value}$\\
+$E_k(Key_1)$     \& $E_k(Value_1)$\\
+...         \& ...\\
+$E_k(Key_n)$     \&$E_k(Value_n)$\\
+};
+\end{tikzpicture}
+};
+
+\node (EncDoc2)[doc,fill=white,fill opacity=1.0,text opacity=1]  at (13.5,-7.0) {
+\begin{tikzpicture}
+\node[label={\textbf{Encrypted doc}}, color=black] (ED)  {};
+\matrix (B) [table,text width=22mm,below =-5mm of ED, ampersand replacement=\&]
+{
+$\color{red} \bm{eTag}$ \&$\color{red}\bm{value}$\\
+$E_k(Key_1)$     \&$E_k(Value_1)$\\
+...         \& ...\\
+$E_k(Key_n)$\&$E_k(Value_n)$\\
+};
+\end{tikzpicture}
+};
+\draw[->, >=latex, black!70, line width=4pt,rotate=-90]   (DisInfo) to node[black]{} (Enc) ;
+\draw[->, >=latex, black!70, line width=4pt,rotate=-90]   (Info) to node[black]{} (Enc) ;
+\draw[->, >=latex, black!70, line width=4pt,rotate=-90]   (Enc) to node[black]{} (eTag) ;
+\draw[->, >=latex, black!70, line width=4pt,rotate=-90]   (eTag) to node[black]{} (EncDoc) ;
+
+\end{tikzpicture}

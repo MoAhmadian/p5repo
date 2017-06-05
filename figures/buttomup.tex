@@ -1,0 +1,169 @@
+\begin{tikzpicture}[thick]
+\node (db1) [cylinder, fill=gray!30,shape border rotate=90,draw,minimum height=5cm,minimum width=5cm,shape aspect=1] {Database D};
+
+\node (s1) [cylinder,below left=3.0cm and 10.0cm of db1,fill=white,shape border rotate=90,draw,minimum height=2.5cm,minimum width=2cm,shape aspect=1] {${s_{1,D}}$};
+
+\node (s2) [cylinder,below= 0.4cm of db1,fill=white,shape border rotate=90,draw,minimum height=2.5cm,minimum width=2.0cm,shape aspect=1] {${s_{2,D}}$};
+
+\node (sn) [cylinder,below right= 3.0cm and 10.0cm of db1,fill=white,shape border rotate=90,draw,minimum height=2.5cm,minimum width=2cm,shape aspect=1] {${s_{n,D}}$};
+
+%s_1
+\node (s1s1) [cylinder,below left=1.0cm and 3.0 cm of s1,fill=white,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.5cm,shape aspect=0.75] {${s_{1,s_1}}$};
+
+\node (s2s1) [cylinder,below= 0.4cm of s1,fill=white,shape border rotate=90,draw,minimum height=1cm,minimum width=1cm,shape aspect=0.75] {${s_{2,s_1}}$};
+
+\node (sns1) [cylinder,below right= 1.0cm and 3 cm of s1,fill=white,shape border rotate=90,draw,minimum height=1cm,minimum width=1cm,shape aspect=0.75] {${s_{m,s_1}}$};
+
+%s_2
+\node (s1s2) [cylinder,below left= 1.0cm and 3.0 cm of s2,fill=white,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.5cm,shape aspect=0.75] {${s_{1,s_2}}$};
+
+\node (s2s2) [cylinder,below= 0.4cm of s2,fill=white,shape border rotate=90,draw,minimum height=1cm,minimum width=1cm,shape aspect=0.75] {${s_{2,s_2}}$};
+
+\node (sns2) [cylinder,below right= 1.0cm and 3.0 cm of s2,fill=white,shape border rotate=90,draw,minimum height=1cm,minimum width=1cm,shape aspect=0.75] {${s_{m,s_2}}$};
+
+%s_n
+\node (s1sn) [cylinder,below left=1.5cm and 3.0 cm of sn,fill=white,shape border rotate=90,draw,minimum height=1cm,minimum width=1cm,shape aspect=0.75] {${s_{1,s_n}}$};
+
+\node (s2sn) [cylinder,below=0.4cm of sn,fill=white,shape border rotate=90,draw,minimum height=0.5cm,minimum width=1cm,shape aspect=0.75] {${s_{2,s_n}}$};
+
+\node (snsn) [cylinder,below right=1.0cm and 3.0 cm of sn,fill=white,shape border rotate=90,draw,minimum height=1cm,minimum width=1cm,shape aspect=0.75] {${s_{m,s_n}}$};
+
+\draw[vecArrow] (db1) to (s1);
+\draw[vecArrow] (db1) to (s2);
+\draw[vecArrow] (db1) to (sn);
+
+\draw[vecArrow] (s2) to (s2s2);
+\draw[vecArrow] (s2) to (s1s2);
+\draw[vecArrow] (s2) to (sns2);
+
+\draw[vecArrow] (s1) to (s2s1);
+\draw[vecArrow] (s1) to (s1s1);
+\draw[vecArrow] (s1) to (sns1);
+
+\draw[vecArrow] (sn) to (s1sn);
+\draw[vecArrow] (sn) to (s2sn);
+\draw[vecArrow] (sn) to (snsn);
+
+\fill[black] (-10.8,-7.5) circle (0.05cm);
+\fill[black] (-11.0,-7.5) circle (0.05cm);
+\fill[black] (-11.2,-7.5) circle (0.05cm);
+
+\fill[black] (1.2,-6) circle (0.05cm);
+\fill[black] (1.4,-6) circle (0.05cm);
+\fill[black] (1.6,-6) circle (0.05cm);
+
+\fill[black] (2.0,-3.5) circle (0.1cm);
+\fill[black] (2.5,-3.5) circle (0.1cm);
+\fill[black] (3.0,-3.5) circle (0.1cm);
+
+\fill[black] (13.9,-7.5) circle (0.05cm);
+\fill[black] (14.1,-7.5) circle (0.05cm);
+\fill[black] (14.3,-7.5) circle (0.05cm);
+
+%\node [draw,below right= 0.5cm and 0.001cm of s1s1,rotate=-90](aggregate1){Aggregate query $\theta$};
+%\node [draw,below right= 0.5cm and 0.001cm of s2s1,rotate=-90](aggregate2){Aggregate query $\theta$};
+%\node [draw,below right= 0.5cm and 0.001cm of sns1,rotate=-90](aggregate3){Aggregate query $\theta$};
+%\node [draw,below right= 0.5cm and 0.001cm of s1s2,rotate=-90](aggregate4){Aggregate query $\theta$};
+%\node [draw,below right= 0.5cm and 0.001cm of s2s2,rotate=-90](aggregate5){Aggregate query $\theta$};
+%\node [draw,below right= 0.5cm and 0.001cm of sns2,rotate=-90](aggregate6){Aggregate query $\theta$};
+%\node [draw,below right= 0.5cm and 0.001cm of s1sn,rotate=-90](aggregate7){Aggregate query $\theta$};
+%\node [draw,below right= 0.5cm and 0.001cm of s2sn,rotate=-90](aggregate8){Aggregate query $\theta$};
+%\node [draw,below right= 0.5cm and 0.001cm of snsn,rotate=-90](aggregate9){Aggregate query $\theta$};
+
+
+\node [draw,below= 0.5cm of s1s1](aggregate1){\scriptsize classification};
+\node [draw,below= 0.5cm of s2s1](aggregate2){\scriptsize classification};
+\node [draw,below= 0.5cm of sns1](aggregate3){\scriptsize classification};
+\node [draw,below= 0.5cm of s1s2](aggregate4){\scriptsize classification};
+\node [draw,below= 0.5cm of s2s2](aggregate5){\scriptsize classification};
+\node [draw,below= 0.5cm of sns2](aggregate6){\scriptsize classification};
+\node [draw,below= 0.5cm of s1sn](aggregate7){\scriptsize classification};
+\node [draw,below= 0.5cm of s2sn](aggregate8){\scriptsize classification};
+\node [draw,below= 0.5cm of snsn](aggregate9){\scriptsize classification};
+
+
+\draw[vecArrow] (s1s1) to (aggregate1);
+\draw[vecArrow] (s2s1) to (aggregate2);
+\draw[vecArrow] (sns1) to (aggregate3);
+\draw[vecArrow] (s1s2) to (aggregate4);
+\draw[vecArrow] (s2s2) to (aggregate5);
+\draw[vecArrow] (sns2) to (aggregate6);
+\draw[vecArrow] (s1sn) to (aggregate7);
+\draw[vecArrow] (s2sn) to (aggregate8);
+\draw[vecArrow] (snsn) to (aggregate9);
+
+\node (sen1) [cylinder,below left= 0.1 cm and 0.001cm of aggregate1,fill=red!40,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.2cm,shape aspect=1]{$\scriptstyle{C_{1,s_1}}$};
+
+\node (norm1) [cylinder,below right= 0.1 cm and 0.001cm of aggregate1,fill=gray!20,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.2cm,shape aspect=1]{$\scriptstyle{N_{1,s_1}}$};
+
+\node (sen2) [cylinder,below left= 0.1 cm and 0.001cm of aggregate2,fill=red!40,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.2cm,shape aspect=1]{$\scriptstyle{C_{2,s_1}}$};
+
+\node (norm2) [cylinder,below right= 0.1 cm and 0.001cm of aggregate2,fill=gray!20,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.2cm,shape aspect=1]{$\scriptstyle{N_{2,s_1}}$};
+
+\node (sen3) [cylinder,below left= 0.1 cm and 0.001cm of aggregate3,fill=red!40,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.2cm,shape aspect=1] {$\scriptstyle{C_{m,s_1}}$};
+
+\node (norm3) [cylinder,below right= 0.1 cm and 0.001cm of aggregate3,fill=gray!20,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.2cm,shape aspect=1] {$\scriptstyle{N_{m,s_1}}$};
+
+\node (sen4) [cylinder,below left= 0.1 cm and 0.001cm of aggregate4,fill=red!40,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.2cm,shape aspect=1]{$\scriptstyle{C_{1,s_2}}$};
+
+\node (norm4) [cylinder,below right= 0.1 cm and 0.001cm of aggregate4,fill=gray!20,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.2cm,shape aspect=1] {$\scriptstyle{C_{2,s_2}}$};
+%
+\node (sen5) [cylinder,below left= 0.1 cm and 0.001cm of aggregate5,fill=red!40,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.2cm,shape aspect=1] {$\scriptstyle{C_{m,s_2}}$};
+
+\node (norm5) [cylinder,below right= 0.1 cm and 0.001cm of aggregate5,fill=gray!20,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.2cm,shape aspect=1]{$\scriptstyle{C_{1,s_n}}$};
+
+\node (sen6) [cylinder,below left= 0.1 cm and 0.001cm of aggregate6,fill=red!40,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.2cm,shape aspect=1] {$\scriptstyle{C_{m,s_2}}$};
+
+\node (norm6) [cylinder,below right= 0.1 cm and 0.001cm of aggregate6,fill=gray!20,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.2cm,shape aspect=1]{$\scriptstyle{C_{1,s_n}}$};
+
+
+\node (sen7) [cylinder,below left= 0.1 cm and 0.001cm of aggregate7,fill=red!40,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.2cm,shape aspect=1] {$\scriptstyle{C_{2,s_n}}$};
+
+\node (norm7) [cylinder,below right= 0.1 cm and 0.001cm of  aggregate7,fill=gray!20,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.2cm,shape aspect=1] {$\scriptstyle{C_{m,s_n}}$};
+
+\node (sen8) [cylinder,below left= 0.1 cm and 0.001cm of aggregate8,fill=red!40,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.2cm,shape aspect=1] {$\scriptstyle{C_{2,s_n}}$};
+
+\node (norm8) [cylinder,below right= 0.1 cm and 0.001cm of  aggregate8,fill=gray!20,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.2cm,shape aspect=1] {$\scriptstyle{C_{m,s_n}}$};
+
+\node (sen9) [cylinder,below left= 0.1 cm and 0.001cm of aggregate9,fill=red!40,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.2cm,shape aspect=1] {$\scriptstyle{C_{2,s_n}}$};
+
+\node (norm9) [cylinder,below right= 0.1 cm and 0.001cm of  aggregate9,fill=gray!20,shape border rotate=90,draw,minimum height=0.5cm,minimum width=0.2cm,shape aspect=1] {$\scriptstyle{C_{m,s_n}}$};
+
+
+%\draw [decorate,decoration={brace,amplitude=15pt},xshift=0pt,yshift=0pt](-20,-10) -- (-20,-2)  node [black,midway] {};
+%
+%\node[label={[label distance=0.5cm,text depth=-1ex,rotate=-90]right:Level of resampling}] at (-21,-2.5) {};
+
+\draw[vecArrow] (aggregate1) to (sen1);
+\draw[vecArrow] (aggregate1) to (norm1);
+\draw[vecArrow] (aggregate2) to (sen2);
+\draw[vecArrow] (aggregate2) to (norm2);
+\draw[vecArrow] (aggregate3) to (sen3);
+\draw[vecArrow] (aggregate3) to (norm3);
+\draw[vecArrow] (aggregate4) to (sen4);
+\draw[vecArrow] (aggregate4) to (norm4);
+\draw[vecArrow] (aggregate5) to (sen5);
+\draw[vecArrow] (aggregate5) to (norm5);
+\draw[vecArrow] (aggregate6) to (sen6);
+\draw[vecArrow] (aggregate6) to (norm6);
+\draw[vecArrow] (aggregate7) to (sen7);
+\draw[vecArrow] (aggregate7) to (norm7);
+\draw[vecArrow] (aggregate8) to (sen8);
+\draw[vecArrow] (aggregate8) to (norm8);
+\draw[vecArrow] (aggregate9) to (sen9);
+\draw[vecArrow] (aggregate9) to (norm9);
+
+
+\draw[-latex,bend left]   (sen1) edge (s1s1);
+\draw[-latex,bend left]   (sen2) edge (s2s1);
+\draw[-latex,bend left]   (sen3) edge (sns1);
+%
+\draw[-latex,bend left]   (sen4) edge (s1s2);
+\draw[-latex,bend left]   (sen5) edge (s2s2);
+\draw[-latex,bend left]   (sen6) edge (sns2);
+%
+\draw[-latex,bend left]   (sen7) edge (s1sn);
+\draw[-latex,bend left]   (sen8) edge (s2sn);
+\draw[-latex,bend left]   (sen9) edge (snsn);
+
+\end{tikzpicture}

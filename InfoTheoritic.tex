@@ -1,0 +1,49 @@
+%*************************************************
+\section{Metric for implicit information leakage} 
+\label{app:infoTheoritic}
+%*************************************************
+Given any two data fields which can be represented by two random variables $X,Y$, their values are chosen from two value sets $\chi, \gamma$ respectively. The probability distribution of these two random variables can be expressed with $p\left( x \right)=P \left[ X=x_i\right]$ and $p\left( y \right)=P\left[Y=y_j\right]$. 
+
+\begin{equation}
+\label{equ:Leakagedefinition}
+\begin{aligned}
+\noalign{\text{Value sets $\chi$ and $\gamma$ are defined as:}}\\
+&\chi=\{x_1,\ldots,x_n\}, ~ \gamma=\{y_1,\ldots,y_m\}\\
+&\text{Where $X,Y$ chosen values are from value sets $\chi, \gamma$ such that:}\\
+&X: \chi \longmapsto x_i ~and~  Y:\gamma \longmapsto y_j\\
+&\text{Knowing that the {\it entropy} of $X,Y$ are defined as:} \\
+&H(X) = -\sum_{i=1}^{n}p(x_i) \log p(x_i); \quad
+H(Y) = -\sum_{j=1}^{m}p(y_j) \log p(y_j)\\
+\end{aligned}
+\end{equation}
+
+The {\it conditional entropy} that measures the uncertainty of $X$ when $Y$ is known is defined as below: 
+
+\begin{equation}
+\begin{aligned}
+& H(X|Y) = -\sum_{i,j} p(x_i,y_j) \log \frac{p(x_i,y_j)}{p(y_j)} \quad =  \sum_j p(y_j) H(X|Y=y_j)\\
+& \text{A chain rule for multiple random variables holds:}\\
+& H(X_1,X_2,\ldots,X_k) = \sum_{i=1}^k H(X_i | X_1, \ldots, X_{k-1}) 
+\end{aligned}
+\end{equation}
+If the random variables $X,~Y$ are independent, the value of $\mathcal{L}(X,Y)$ is $0$. The value of $\mathcal{L}(X,Y)$ is maximum if $X,~Y$ are completely dependent. Therefore, the {\it information leakage} between two data elements $X,Y$ is presented as $\mathcal{L} \left(X,Y\right)=H\left(X\right)-H\left(X \lvert Y\right)$. In other word, $\mathcal{L}(X,Y)$ measures the information that can be captured about $X$ provided that we know $Y$. $\mathcal{L}(X,Y)$ is commutative relation and its value is a number in the range of $0$ and $H\left(X\right)$. 
+\begin{equation} 
+\label{eq:leakage}
+\mathcal{L} \left(X,Y\right)= \mathcal{L}\left(Y, X\right)= 
+\begin{cases}
+0   & \quad \textbf{if}  ~ X,~ Y ~~~~~ \text{ are independent}\\
+H\left(X\right) & \textbf{When}  ~ X,~ Y~~   \text{ are completely dependent}
+\end{cases}
+\end{equation} 
+
+\noindent {\bf Mutual information of attributes:} We define {\it mutual information } for quantifying the relationship between two attributes belonging to any two selected databases. In particular, it measures how much information is found in one attribute about another and vice versa. An important theorem from information theory states that the mutual information between two variables is 0 if and only if the two variables are statistically independent. The formal definition of the mutual information of two random variables $X$ and $Y$ , $I(X; Y)$, is given by: 
+
+\begin{equation} 
+I(X; Y ) = \sum_{i}\sum_{j} P\left(x_i, y_j\right) log \left(\frac{P\left(x_i, y_j\right)}{P\left(x_i\right)P\left(y_j\right)}\right).
+\end{equation} 
+In this definition, $P\left(x_i\right)$ and $P\left(y_j \right)$ are the marginal distributions of $X$ and $Y$, and $P\left(x_i, y_j \right)$ is joint probability of $X, Y$. Mutual information evaluates  the binary relation that indicates the information that $X$ and $Y$ are shearing. In particular, it measures how much knowing one of these variables reduces our uncertainty about the other. Intuitively, mutual information can be interpreted as a definition of information leakage.\\
+
+In general, information leakage between multiple data elements can be define using conditional mutual information, a form of multi-tier interaction. Particularly, conditional mutual information measures the correlation between two random variables conditioned on a third random variable an so on; it is defined as:
+\begin{equation} 
+I(X; Y|Z) = H(X|Z)-H(x|Y,Z)= H(Y|Z) - H(Y|Y,Z)
+\end{equation} 

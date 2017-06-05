@@ -1,0 +1,29 @@
+\begin{tikzpicture}%[trim axis right, trim axis right]
+\begin{axis}[
+every axis plot post/.style={/pgf/number format/fixed},
+ybar=5pt,
+%enlarge y limits={upper,value=0.2},
+height=6.5cm,width=12cm,
+axis on top,
+ymax=100,
+bar width=15pt,
+x=1.2cm,
+symbolic x coords={$10^2$,$10^3$,$10^4$,$10^5$,$10^7$,$10^8$},
+restrict y to domain*=0:110, % Cut values off at 110
+visualization depends on=rawy\as\rawy, % Save the unclipped values
+after end axis/.code={ % Draw line indicating break
+\draw [ultra thick, white, decoration={snake, amplitude=1pt}, decorate] (rel axis cs:0,1.05) -- (rel axis cs:1,1.05);},
+nodes near coords={%
+\pgfmathprintnumber{\rawy}% Print unclipped values
+},
+axis lines*=left,
+clip=false,
+ylabel={Processing time(ms)},
+xtick=data,
+enlarge x limits=0.5,
+xlabel={Number of documents per samples},
+cycle list = {white,black!10,black!40,black!10,black!10}
+]
+\addplot+[fill,draw=black,text=black, postaction={pattern=crosshatch},draw=black] coordinates {({$10^2$},0.45) ({$10^3$},1.8) ({$10^4$},10.8) ({$10^5$},93) ({$10^7$},14000)};
+\end{axis}
+\end{tikzpicture}

@@ -1,0 +1,11 @@
+\begin{figure}[H]
+\begin{framed}
+{\ttfamily \small{ 
+\textbf{db[source].aggregate}([\\\{\textbf{\$lookup :}\{\\\textbf{from :}destination,\\    \textbf{localField :}value,\\    \textbf{foreignField :}value,\\    \textbf{as :}"correlation" \}\},\\ \{\textbf{\$match :}\{"correlation":\{\textbf{\$ne :}[]\}\}\},\\
+\{ \textbf{\$out :} saveToCollection \}\\]);
+}
+}
+\end{framed}
+\caption{Aggregate query for analysis of pairwise cross-correlation between two given source and destination collection.}
+\label{fig:CCQuery}
+\end{figure}
