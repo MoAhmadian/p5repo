@@ -1,51 +1,49 @@
 %****************************************************************************
-\section{Security schemes for cloud database services}
+\section{Related Work}
 \label{sec:relatedWork}
 %*****************************************************************************
 
-Query processing for outsourced databases is reported in  \cite{popa2011cryptdb,Ahmadian2016SecureNoSQL,7889242}. A common practice is to apply a cryptosystem  before releasing a database to a service provider and to  encrypt the queries as well. For instance, CryptDB \cite{popa2011cryptdb} can be used for encrypted SQL-based cloud databases, while SecureNoSQL  \cite{Ahmadian2016SecureNoSQL} for encrypted NoSQL databases. 
+Query processing for outsourced databases is reported in \cite{popa2011cryptdb,Ahmadian2016SecureNoSQL,7889242}. Sometimes, data is encrypted before a database is stored on a cloud; database queries to the cloud database are also encrypted. For instance, CryptDB \cite{popa2011cryptdb} and SecureNoSQL \cite{Ahmadian2016SecureNoSQL} can be used for encrypted SQL and NoSQL cloud databases, respectively. 
 
-These two systems do require modifications of database services, encrypted data is processed identically as the plaintext data. Database optimizations such as multi-layer indexing and cache and file management are applied to encrypted databases without any modifications. However, neither of existing systems address information leakage of encrypted data.
+These two systems do not require modifications of database services, encrypted data is processed identically as the plaintext data. Database optimizations such as multi-layer indexing and cache and file management are applied to encrypted databases without any modifications. However, no existing systems address information leakage of encrypted data.
 
-Full Homomorphic Encryption (FHE)  allows computations to be performed on ciphertext. Decryption of the results of these operations are identical with the results of operations performed on the corresponding plaintext.  HE is theoretically feasible \cite{gentry2010computing}, but impractical due to the enormous overhead involved.
+Full Homomorphic Encryption (FHE) allows computations to be performed on cyphertext. Decryption of the encrypted results of these operations are identical with the results of operations performed on the corresponding plaintext. FHE is theoretically feasible \cite{gentry2010computing}, but impractical due to the enormous overhead involved.
 
-Order Preserving Encryption (OPE) scheme is a deterministic cryptosystem where encryption of numeric data preserves the ordering of the plaintext data. Aggregate queries such as comparison, min, and max can be executed on OPE encrypted datasets. OPE offers less protection than FHE and leaks critical information about the plaintext data \cite{ahmadian2014security, boldyreva2009order}. 
+Order Preserving Encryption (OPE) is a deterministic cryptosystem where encryption of numeric data preserves the ordering of the plaintext data. Aggregate queries such as comparison, min, and max can be executed on OPE-encrypted datasets. OPE offers less protection than FHE and leaks critical information about the plaintext data \cite{ahmadian2014security, boldyreva2009order}. 
 
 Searchable encryption methods such as Oblivious RAM (ORAM) \cite{liu2014search, ostrovsky1990efficient} provide an acceptable level of security. However, the efficiency and the high computational cost, as well as the excessive communication costs between the clients and the server make this method impractical \cite{goldreich1996software}.
 
-Inference attacks against CryptDB was first proposed in \cite{naveed2015inference}. A series of attacks to the encrypted databases were designed under CryptDB, especially those encrypted with property preserving crypto-systems. Deterministic and OPE cryptosystems leak  critical information such as frequency and order of the original data, and therefore enable the attackers to extract sensitive information. The literature on managing information leakage in the cloud shows a variety of approaches. Two major research approaches include (i) restriction on the sequence of queries or query processing time; and (ii) insertion of fake documents.
+Inference attacks against CryptDB are discussed in \cite{naveed2015inference}. Deterministic and OPE cryptosystems leak critical information such as frequency and order of the original data and enable attackers to extract sensitive information. Two cloud information leakage prevention methods have been proposed: (i) restrict the sequence of queries or the query processing time; and (ii) insert fake documents.
 
-A quantitative characterization of correlation-based information leakage, formulated through the capacity of a $(n,q)-leakage$ channel is studied using restriction on the number of query or query processing time \cite{4221659}. The n-channel capacity is defined as the maximum possible depth of query-able information for any user. The capacity of a n-leakage channel, is defined as the probability of accessing a specific sensitive document in $n$ trials. In this approach, a group of documents form a chain with track of key-value pairs, and attacker can locate the head of the chain. By following the footprints, the rest of sensitive information can be accessed. The attacker is not only constrained by the number of trials, but also by the time necessary to achieve his objectives.
+A quantitative characterization of correlation-based information leakage, formulated through the capacity of a $(n,q)-leakage$ channel is studied using restriction on the number of query or query processing time \cite{4221659}. The n-channel capacity is defined as the maximum possible depth of query-able information for any user. 
 
-There are two major approaches to manage information leakage. The first approach is built upon the dependency graph of sensitive attributes scattered in the multiple collections stored in cloud warehouse. In fact, the query sequence is mapped on the dependency graph, and according to the defined policy, at some points, the queries should be prevented from execution. More specifically this method is about keeping track of queries and when the accumulated leaked information reaches to the maximum level of disclosure; the proxy prevents any more queries from being executed. This method is vulnerable when it is subjected to collaborative attacks, or in particular, when multiple users are trying to pass partial result to the next user to obtain the maximum leakage. Evidently, this method is not effective against MI \cite{4221659}.
+The capacity of a n-leakage channel, is defined as the probability of accessing a specific sensitive document in $n$ trials. In this approach, a group of documents form a chain with track of key-value pairs, and attacker can locate the head of the chain. By following the footprints, the rest of sensitive information can be accessed. The attacker is not only constrained by the number of trials, but also by the time necessary to achieve his objectives.
 
-To reduce the risks posed by information leakage second approach propose insertion of fake documents in the database.  The fake information is expected to mislead the attacker by providing multiple values to an attribute. This solution drastically increases the number of total documents, the search time, and the communication costs\cite{whang2010managing}. However, multi-level indexing could reduce the query processing time in this case.
+Two approaches to manage information leakage are used. The first builds a query dependency graph and a proxy prevents query execution when the accumulated leaked information reaches the maximum level of disclosure. This method is vulnerable to collaborative attacks and it is not effective against insider an attacker \cite{4221659}.
 
-The number of the database limits the  ability analyze the level of information leakage between data elements in real-time. Random sampling for approximate measurement dramatically cuts the analysis time, especially, whenever the sample size is small enough to fit in the main memory. of the database server However, approximate measurements based on sample data show different levels of inconsistency with measurements on the entire database. Sampling-based Approximate Query Processing (AQP) provides bounds on the error caused by sampling \cite{agarwal2014knowing, chatzikokolakis2009calculating}.
-
-Assessing the leakage from large datasets is a kind of problem that can tolerate some degree of inaccuracy. Therefore, we adopt the same approach in this work. In this work, the multi-level indexing and sampling-based approximate query processing is used as our first approach to avoid high latency of query processing. The second approach introduced in this work is selective disinformation document insertion based on the statistical analytics of data. This solution reduces the size of the expanded dataset and decreases the  overhead, the computational cost, and the response latency. 
+The second approach propose insertion of fake documents in the database. The fake information is expected to mislead the attacker by providing multiple values to an attribute. This solution drastically increases the number of total documents, the search time, and the communication costs\cite{whang2010managing}. However, multi-level indexing could reduce the query processing time in this case.
 
 \medskip
 
-Cloud data can be in three states store, transit, or process and any comprehensive data security mechanism must protect data in any of these three states. The communication channels can be secured using standard HTTP over the SSL (Secure Socket Layer) communication protocol. 
+\noindent {\bf Cloud Data Encryption Schemes.} Cloud data can be in three states store, transit, or process and any comprehensive data security mechanism must protect data in any of these three states. The communication channels can be secured using standard HTTP over the SSL (Secure Socket Layer) communication protocol. 
 
-Most CSPs provide an API for the web service that enables developers to use both the standard HTTP and the secure version of the HTTPS protocol. The security requirements of data in transit state can be fully satisfied using HTTPS for communication with cloud. The endpoint authentication feature  SSL makes it possible to ensure that the clients are communicating with an authentic cloud server.
+Most CSPs provide an API for the web service that enables developers to use both the standard HTTP and the secure version of the HTTPS protocol. The security requirements of data in transit state can be fully satisfied using HTTPS for communication with cloud. The endpoint authentication feature SSL makes it possible to ensure that the clients are communicating with an authentic cloud server.
 
 The basic idea is to encrypt the data before uploading it to CSP. However, the data should be decrypted by the cloud server before getting processed. In other words, the data owner should disclose decryption key to the server in order to decrypt the data before performing any required operation. The problem is when the decryption key is compromised, the data confidentiality would be affected. Therefore, in the cloud computing environment new cryptosystems are required. 
 
-\medskip
+\smallskip
 
 
-\noindent \textbf{\textit{Random (RND):}} In  a RND type encryption scheme, a message is coupled with a key $k$ and a random Initial Vector (IV). This scheme is non-deterministic, encryption of the same message with the same key yields different ciphertext. This randomness provides the highest level of security. 
+\noindent \textbf{\textit{Random (RND):}} In a RND type encryption scheme, a message is coupled with a key $k$ and a random Initial Vector (IV). This scheme is non-deterministic, encryption of the same message with the same key yields different ciphertext. This randomness provides the highest level of security. 
 
 The randomness property is achievable with different encryption algorithms. Advanced Encryption Standard (AES) with Cipher Block Chaining (CBC) mode is used for RND encryption. AES is a symmetric block cipher algorithm with a key size of 128,192 or 256 bits and with a block size of 128 bits. RND type schemes are semantically secure against chosen plaintext attacks and hides all kinds of information about ciphertext. As a result, RND scheme does not allow any efficient computation on the ciphertext. Equation \ref{eq1} describes the encryption and decryption of a block cipher in CBC mode.
 
 \begin{equation} 
 \label{eq1}
 \begin{aligned}
-for \quad j=2 \ldots n ;\qquad  \begin{cases}
-C_1  = E_k(P_1 \oplus IV), \qquad  P_1 &= IV \oplus D_k(C_1) \\
-C_j  = E_k(P_j \oplus C_{j-1}), \quad 
+for \quad j=2 \ldots n ;\qquad \begin{cases}
+C_1 = E_k(P_1 \oplus IV), \qquad P_1 &= IV \oplus D_k(C_1) \\
+C_j = E_k(P_j \oplus C_{j-1}), \quad 
 P_j &= C_{j-1} \oplus 
 D_k(C_j)\\ 
 \end{cases}\\
@@ -54,13 +52,13 @@ D_k(C_j)\\
 
 \medskip
 
-\noindent \textbf{\textit{Deterministic (DET):}}  A DET encryption scheme produces the same ciphertext for an identical pair of plaintext and key. Block ciphers in Electronic Code Book (ECB) mode, with a constant initialization vector are deterministic (DET). Deterministic encryption scheme preserves equality, therefore, the frequencies information of the searched keywords leaks to the third party. 
+\noindent \textbf{\textit{Deterministic (DET):}} A DET encryption scheme produces the same ciphertext for an identical pair of plaintext and key. Block ciphers in Electronic Code Book (ECB) mode, with a constant initialization vector are deterministic (DET). Deterministic encryption scheme preserves equality, therefore, the frequencies information of the searched keywords leaks to the third party. 
 
 AES scheme in ECB mode is used for DET encryption over document-oriented NoSQL databases. DET scheme enables server to process pipeline aggregation stages such as group, count, retrieving distinct values and equality match \footnote{Equality matches over specific common fields in an embedded document will select documents in the collection where the embedded document contains the specified fields with the specified values.} on the fields within an embedded document. The embedded document can maintain the link with the primary document through application of DET encryption. Equation \ref{eq2} describes the encryption and decryption operation in a DET.
 
 \begin{equation} \label{eq2}
 \begin{aligned}
-for \quad j=1, \ldots, n ;  \qquad \qquad  C_j & = E_k(P_j); \qquad \quad 
+for \quad j=1, \ldots, n ; \qquad \qquad C_j & = E_k(P_j); \qquad \quad 
 & P_j & = D_k(C_j) 
 \end{aligned}
 \end{equation}
@@ -75,7 +73,7 @@ for \quad j=1, \ldots, n ;  \qquad \qquad  C_j & = E_k(P_j); \qquad \quad
 
 \begin{equation} \label{eq3}
 \begin{aligned}
-\forall x, ~y ~|~ x,~y~ \in {Data~ Domain} \qquad x < y  \implies  OPE_k(x) < OPE_k(y)
+\forall x, ~y ~|~ x,~y~ \in {Data~ Domain} \qquad x < y \implies OPE_k(x) < OPE_k(y)
 \end{aligned}
 \end{equation}
 
@@ -84,7 +82,7 @@ for \quad j=1, \ldots, n ;  \qquad \qquad  C_j & = E_k(P_j); \qquad \quad
 
 \medskip 
 
-\noindent \textbf{\textit{Additive Homomorphic Encryption (AHOM):}} AHOM allows the server to conduct computations on ciphertext with the final result that is decrypted at the proxy. In spite of sustained research efforts \cite{gentry2009fully, brakerski2014efficient} of the Fully Homomorphic Encryption (FHE), there is no efficient FHE, except for some limited operations. AHOM is formulated in Equation \ref{eq4}. It should be noted that  $m_1, m_2$ are messages to be encrypted where $m_1 , m_2 \in \mathbb Z_{n}$. $r_1, r_2$ are randomly selected and $r_1, r_2 \in \mathbb Z^{*}_{n}$. In other words, the product of two ciphertexts decrypt to the sum of their corresponding plaintexts.
+\noindent \textbf{\textit{Additive Homomorphic Encryption (AHOM):}} AHOM allows the server to conduct computations on ciphertext with the final result that is decrypted at the proxy. In spite of sustained research efforts \cite{gentry2009fully, brakerski2014efficient} of the Fully Homomorphic Encryption (FHE), there is no efficient FHE, except for some limited operations. AHOM is formulated in Equation \ref{eq4}. It should be noted that $m_1, m_2$ are messages to be encrypted where $m_1 , m_2 \in \mathbb Z_{n}$. $r_1, r_2$ are randomly selected and $r_1, r_2 \in \mathbb Z^{*}_{n}$. In other words, the product of two ciphertext messages decrypt to the sum of their corresponding plaintext.
 
 \begin{equation} \label{eq4}
 \begin{aligned}
@@ -97,5 +95,4 @@ In this paper whenever the summation and multiplication operations are carried o
 Data granularity indicates the level of detail, the more detail, the higher granularity level.
 Encryption can be applied for datasets at various levels of granularity from high granularity data, like atomic level data element to low level granularity in aggregated atomic data items. For data store encryption, it is conceivable to have different encryption granularity levels according to the corresponding data granularity. 
 
-The higher level of encryption granularity, the higher the information leakage. For example, encryption of a single attribute leaks frequency information, while encryption of the entire  document and collection as a single unit leaks less information. In the work reported in this paper  we use different encryption granularity matching the data granularity level. 
-
+The higher level of encryption granularity, the higher the information leakage. For example, encryption of a single attribute leaks frequency information, while encryption of the entire document and collection as a single unit leaks less information. In the work reported in this paper we use different encryption granularity matching the data granularity level.

@@ -90,19 +90,12 @@ In our experiment, we create four sets of random samples from the original datab
 \subsection{Results and discussion}
 \label{ResultAndDiscussionSubSection}
 %*************************************************
-%*************************************************
-\subsubsection{Experimental setup:}
-\label{subsec:ExperimentalSetup}
-%*************************************************
-We set up a cluster of $100$ AWS EC2 instances (t2.large) as homogeneous physical machines with $2$ vCPU, $8$ GB memory, and the Linux kernel version 4.4.0-59-generic has been utilized for experiments. For unmodified NoSQL server, MongoBD version 3.2.7 has been used as the NoSQL database server. The OPE and DHOM cryptosystems are implemented locally and other crypto modules are implemented from OpenSSL version 1.0.2g. The measured query latency time is considered as the interval between the time when the sever receives a query and the time it starts to forward the query result. For accurate measurement of the query latency, the query caching and pre-fetching disabled because, most of database servers keep all of the most recently used data in main memory, so the next matching queries will be served from memory accordingly. Furthermore, MongoDB supports variety of storage engines which are designed and optimized for various workloads. The storage engine is responsible for data storage both in memory and on disk. We chose \emph{WiredTiger} storage engine that is well-suited for the most of workloads.
+
+\noindent \textbf{ Experimental setup.} We set up a cluster of $100$ AWS EC2 instances (t2.large) as homogeneous physical machines with $2$ vCPU, $8$ GB memory, and the Linux kernel version 4.4.0-59-generic has been utilized for experiments. For unmodified NoSQL server, MongoBD version 3.2.7 has been used as the NoSQL database server. The OPE and DHOM cryptosystems are implemented locally and other crypto modules are implemented from OpenSSL version 1.0.2g. The measured query latency time is considered as the interval between the time when the sever receives a query and the time it starts to forward the query result. For accurate measurement of the query latency, the query caching and pre-fetching disabled because, most of database servers keep all of the most recently used data in main memory, so the next matching queries will be served from memory accordingly. Furthermore, MongoDB supports variety of storage engines which are designed and optimized for various workloads. The storage engine is responsible for data storage both in memory and on disk. We chose \emph{WiredTiger} storage engine that is well-suited for the most of workloads.\\
 
 
-%*************************************************
-\subsubsection{AQP based sensitivity analysis}
-\label{AQPSensitivityAnalysisSubSection}
-%*************************************************
 
-The goal of sensitivity analysis here is to identify different document classes (i.e. Top Secret, Confidential, etc.), and their corresponding count and percentage. The result of the sensitivity analysis will be used to determine the number of disinformation documents to be added according to the level of document sensitivity. 
+\noindent \textbf{ AQP based sensitivity analysis.} The goal of sensitivity analysis here is to identify different document classes (i.e. Top Secret, Confidential, etc.), and their corresponding count and percentage. The result of the sensitivity analysis will be used to determine the number of disinformation documents to be added according to the level of document sensitivity. 
 
 In the experiment, we used a database of ten million documents. Table \ref{tab:documentClass} shows the eight sensitivity levels and the number and percentage of documents in each sensitivity class.   
 
@@ -176,10 +169,6 @@ Restricted  & 780300  & 07.803\%   & -2499\\
 \end{table*}
 
 
-%*************************************************
-\subsubsection{Discussion}
-\label{subsubsec:Discussion}
-%*************************************************
-In the previous section, an AQP-based sensitivity analysis was performed for eight hypothetical sensitivity classes and the relative error formulated according to Equation \ref{equ:RelativeError}. In our experiments, we considered eight sensitivity classes for AQP using $100$ uniform random samples (with variety of sampling rates from $0.001\%$  to $1\%$ ) form a database containing  $10^7$ documents. All of the samples have been selected to have the same size; so that, the processing time of the aggregate queries is within small range. AWS EC2 (t2.large) instances were used to process each sample. In general, the average speed up for a set of uniform random samples with $10^4$ documents is approximately $1300$x faster than the original database with $0.04\% \pm 0.02$ error percentage. Therefore, replacing the exact query with approximate query saves a remarkable amount of processing time, with a small cost of inaccuracy.
+\noindent {\bf Discussion.} In the previous section, an AQP-based sensitivity analysis was performed for eight hypothetical sensitivity classes and the relative error formulated according to Equation \ref{equ:RelativeError}. In our experiments, we considered eight sensitivity classes for AQP using $100$ uniform random samples (with variety of sampling rates from $0.001\%$  to $1\%$ ) form a database containing  $10^7$ documents. All of the samples have been selected to have the same size; so that, the processing time of the aggregate queries is within small range. AWS EC2 (t2.large) instances were used to process each sample. In general, the average speed up for a set of uniform random samples with $10^4$ documents is approximately $1300$x faster than the original database with $0.04\% \pm 0.02$ error percentage. Therefore, replacing the exact query with approximate query saves a remarkable amount of processing time, with a small cost of inaccuracy.
 
 The AQP with uniform random sampling provides very reasonable results for classification aggregate query workload, with compromise between sample size and query latency. However, for queries with different workloads such as aggregate functions that involve multiple correlated databases, the uniform sampling cannot provide accurate responses and we designed a new technique for biased sampling solution for this problem. In the next section we highlight approximated answers for correlated databases.
